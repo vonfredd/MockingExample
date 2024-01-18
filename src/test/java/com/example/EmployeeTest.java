@@ -46,7 +46,9 @@ class EmployeeTest {
     }
 
     @Test
-    void isPaid() {
+    @Description("Given an employee not been paid, return false")
+    void givenAnEmployeeNotBeenPaidReturnFalse() {
+        assertThat(employee.isPaid()).isEqualTo(false);
     }
 
     @Test
