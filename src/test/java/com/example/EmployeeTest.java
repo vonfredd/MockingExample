@@ -38,7 +38,11 @@ class EmployeeTest {
     }
 
     @Test
-    void setSalary() {
+    @Description("True if new salary is employee salary")
+    void trueIfNewSalaryIsEmployeeSalary() {
+        double newSalary = 20_000.0;
+        employee.setSalary(newSalary);
+        assertThat(employee.getSalary()).isEqualTo(newSalary);
     }
 
     @Test
