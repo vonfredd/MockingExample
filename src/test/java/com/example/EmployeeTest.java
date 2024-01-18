@@ -38,7 +38,7 @@ class EmployeeTest {
     }
 
     @Test
-    @Description("True if new salary is employee salary")
+    @Description("Given a new salary value, expect employee salary to change to new salary")
     void trueIfNewSalaryIsEmployeeSalary() {
         double newSalary = 20_000.0;
         employee.setSalary(newSalary);
