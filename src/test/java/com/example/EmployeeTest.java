@@ -1,11 +1,10 @@
 package com.example;
 
 import jdk.jfr.Description;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class EmployeeTest {
@@ -24,7 +23,11 @@ class EmployeeTest {
     }
 
     @Test
-    void setId() {
+    @Description("True if the set id is the employees new id")
+    void trueIfTheSetIdIsTheEmployeesNewId() {
+        String newId = "124";
+        employee.setId(newId);
+        assertThat(newId).isEqualTo(employee.getId());
     }
 
     @Test
