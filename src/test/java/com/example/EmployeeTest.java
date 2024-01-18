@@ -23,11 +23,11 @@ class EmployeeTest {
     }
 
     @Test
-    @Description("True if the set id is the employees new id")
+    @Description("Given a new id , assert that the employee id is equal to the new id ")
     void trueIfTheSetIdIsTheEmployeesNewId() {
         String newId = "124";
         employee.setId(newId);
-        assertThat(newId).isEqualTo(employee.getId());
+        assertThat(employee.getId()).isEqualTo(newId);
     }
 
     @Test
