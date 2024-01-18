@@ -3,13 +3,12 @@ package com.example;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class EmployeesTest {
     private EmployeeRepository employeeRepository;
@@ -27,9 +26,10 @@ class EmployeesTest {
     }
 
     @Test
-    @Description("Given")
-    void payEmployees() {
+    @Description("Given a list of four employees, should return four")
+    void givenAListOfFourEmployeesShouldReturnFour() {
         Employees employees = new Employees(employeeRepository,bankService);
-
+        int number = employees.payEmployees();
+        assertThat(number).isEqualTo(4);
     }
 }
