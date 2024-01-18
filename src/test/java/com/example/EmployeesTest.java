@@ -44,4 +44,14 @@ class EmployeesTest {
         verify(bankService).pay("103",15000);
     }
 
+    @Test
+    @Description("Given an employee that trigger an exception the isPaid of that employee should be false")
+    void givenAnEmployeeThatTriggerAnExceptionTheIsPaidOfThatEmployeeShouldBeFalse(){
+        Employees employees = new Employees(employeeRepository,bankService);
+        List<Employee> employeeList = employeeRepository.findAll();
+        doThrow(new RuntimeException()).when(bankService).pay("102",12000);
+        employees.payEmployees();
+        assertThat(employeeList.get(1).isPaid()).isEqualTo(true);
+        assertThat(employeeList.get(2).isPaid()).isEqualTo(false);
+    }
 }
