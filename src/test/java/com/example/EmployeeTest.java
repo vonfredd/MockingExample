@@ -9,6 +9,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeTest {
+    private EmployeeRepository orderRepository;
+    private BankServiceImpl orderService;
 
     @BeforeEach
     void setUp(){
