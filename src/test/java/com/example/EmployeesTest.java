@@ -17,7 +17,7 @@ class EmployeesTest {
     @BeforeEach
     void setUp(){
         employeeRepository = mock(EmployeeRepository.class);
-        bankService = new BankServiceImpl();
+        bankService = spy(new BankServiceImpl());
         when(employeeRepository.findAll()).thenReturn(List.of(
                 new Employee("100", 10_000.0),
                 new Employee("101", 20_000.0),
@@ -32,4 +32,16 @@ class EmployeesTest {
         int number = employees.payEmployees();
         assertThat(number).isEqualTo(4);
     }
+
+    @Test
+    @Description("Given a call to pay method from implementation of bankService the test should verify it is called")
+    void givenACallToPayMethodFromImplementationOfBankServiceTheTestShouldVerifyItIsCalled(){
+        Employees employees = new Employees(employeeRepository,bankService);
+        employees.payEmployees();
+        verify(bankService).pay("100",10000);
+        verify(bankService).pay("101",20000);
+        verify(bankService).pay("102",12000);
+        verify(bankService).pay("103",15000);
+    }
+
 }
