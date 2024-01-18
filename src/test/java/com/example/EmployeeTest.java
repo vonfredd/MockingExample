@@ -2,6 +2,8 @@ package com.example;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import static org.mockito.Mockito.*;
 
 import java.util.List;
@@ -9,11 +11,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeTest {
-    private EmployeeRepository orderRepository;
-    private BankServiceImpl orderService;
+    private EmployeeRepository employeeRepository;
+    private BankServiceImpl bankService;
 
     @BeforeEach
     void setUp(){
+        employeeRepository = Mockito.mock(EmployeeRepository.class);
+        bankService = new BankServiceImpl();
     }
 
     @Test
