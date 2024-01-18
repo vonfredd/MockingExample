@@ -1,27 +1,26 @@
 package com.example;
 
+import jdk.jfr.Description;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.mockito.Mockito.*;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeTest {
-    private EmployeeRepository employeeRepository;
-    private BankServiceImpl bankService;
 
+    private Employee employee;
     @BeforeEach
     void setUp(){
-        employeeRepository = Mockito.mock(EmployeeRepository.class);
-        bankService = new BankServiceImpl();
+        employee = new Employee("123",10_000.0);
     }
 
     @Test
-    void getId() {
+    @Description("Given an employeeId, assertTrue if the id retrieved is the same as the given id")
+    void givenAnEmployeeIdAssertTrueIfTheIdRetrievedIsTheSameAsTheGivenId() {
+       String id = employee.getId();
+       assertThat("123").isEqualTo(id);
     }
 
     @Test
