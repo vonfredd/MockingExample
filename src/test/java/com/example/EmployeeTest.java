@@ -52,7 +52,10 @@ class EmployeeTest {
     }
 
     @Test
-    void setPaid() {
+    @Description("Given an employee that has been paid, return true")
+    void givenAnEmployeeThatHasBeenPaidReturnTrue() {
+        employee.setPaid(true);
+        assertThat(employee.isPaid()).isEqualTo(true);
     }
 
     @Test
