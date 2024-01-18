@@ -59,6 +59,9 @@ class EmployeeTest {
     }
 
     @Test
-    void testToString() {
+    @Description("Given a string, expect employee presentation to match")
+    void givenAStringExpectEmployeePresentationToMatch() {
+        String presentation = "Employee [id=123, salary=10000.0]";
+        assertThat(employee.toString()).isEqualTo(presentation);
     }
 }
