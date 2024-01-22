@@ -38,14 +38,14 @@ class EmployeesTest {
     void givenACallToPayMethodFromImplementationOfBankServiceTheTestShouldVerifyItIsCalled(){
         Employees employees = new Employees(employeeRepository,bankService);
         employees.payEmployees();
-        verify(bankService).pay("100",10000);
-        verify(bankService).pay("101",20000);
-        verify(bankService).pay("102",12000);
-        verify(bankService).pay("103",15000);
+        verify(bankService,times(1)).pay("100",10000);
+        verify(bankService,times(1)).pay("101",20000);
+        verify(bankService,times(1)).pay("102",12000);
+        verify(bankService,times(1)).pay("103",15000);
     }
 
     @Test
-    @Description("Given an employee that trigger an exception the isPaid of that employee should be false")
+    @Description("isPaid should return false if employee throws exception")
     void givenAnEmployeeThatTriggerAnExceptionTheIsPaidOfThatEmployeeShouldBeFalse(){
         Employees employees = new Employees(employeeRepository,bankService);
         List<Employee> employeeList = employeeRepository.findAll();
@@ -53,5 +53,17 @@ class EmployeesTest {
         employees.payEmployees();
         assertThat(employeeList.get(1).isPaid()).isEqualTo(true);
         assertThat(employeeList.get(2).isPaid()).isEqualTo(false);
+    }
+
+    @Test
+    @Description("Should continue with next element in list if exception is thrown during bankService.pay()")
+    void shouldContinueWithNextElementInListIfExceptionIsThrown(){
+        Employees employees = new Employees(employeeRepository,bankService);
+        List<Employee> employeeList = employeeRepository.findAll();
+        doThrow(new RuntimeException()).when(bankService).pay("102",12000);
+        employees.payEmployees();
+        assertThat(employeeList.get(1).isPaid()).isEqualTo(true);
+        assertThat(employeeList.get(2).isPaid()).isEqualTo(false);
+        verify(bankService,times(1)).pay(employeeList.get(3).getId(),employeeList.get(3).getSalary());
     }
 }

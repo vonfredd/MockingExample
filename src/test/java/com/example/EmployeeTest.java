@@ -16,14 +16,16 @@ class EmployeeTest {
     }
 
     @Test
-    @Description("Given an employeeId, assertTrue if the id retrieved is the same as the given id")
+    @Description("Given an employeeId, return true if the id retrieved is the same as the given id")
     void givenAnEmployeeIdAssertTrueIfTheIdRetrievedIsTheSameAsTheGivenId() {
        String id = employee.getId();
        assertThat("123").isEqualTo(id);
     }
 
+
+
     @Test
-    @Description("Given a new id , assert that the employee id is equal to the new id ")
+    @Description("Given a new id , return true if the employee id is equal to the new id ")
     void trueIfTheSetIdIsTheEmployeesNewId() {
         String newId = "124";
         employee.setId(newId);
@@ -31,7 +33,7 @@ class EmployeeTest {
     }
 
     @Test
-    @Description("Given a salary, expect employee salary to match")
+    @Description("Given a salary of same amount as employee salary, getSalary should return true")
     void trueIfSalaryIsTheSameAsEmployeeSalary() {
         double salary = 10_000.0;
         assertThat(employee.getSalary()).isEqualTo(salary);
