@@ -38,14 +38,14 @@ class EmployeesTest {
     void givenACallToPayMethodFromImplementationOfBankServiceTheTestShouldVerifyItIsCalled(){
         Employees employees = new Employees(employeeRepository,bankService);
         employees.payEmployees();
-        verify(bankService).pay("100",10000);
-        verify(bankService).pay("101",20000);
-        verify(bankService).pay("102",12000);
-        verify(bankService).pay("103",15000);
+        verify(bankService,times(1)).pay("100",10000);
+        verify(bankService,times(1)).pay("101",20000);
+        verify(bankService,times(1)).pay("102",12000);
+        verify(bankService,times(1)).pay("103",15000);
     }
 
     @Test
-    @Description("Given an employee that trigger an exception the isPaid of that employee should be false")
+    @Description("isPaid should return false if employee throws exception")
     void givenAnEmployeeThatTriggerAnExceptionTheIsPaidOfThatEmployeeShouldBeFalse(){
         Employees employees = new Employees(employeeRepository,bankService);
         List<Employee> employeeList = employeeRepository.findAll();
