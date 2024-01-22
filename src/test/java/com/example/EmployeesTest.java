@@ -54,4 +54,16 @@ class EmployeesTest {
         assertThat(employeeList.get(1).isPaid()).isEqualTo(true);
         assertThat(employeeList.get(2).isPaid()).isEqualTo(false);
     }
+
+    @Test
+    @Description("Should continue with next element in list if exception is thrown during bankService.pay()")
+    void shouldContinueWithNextElementInListIfExceptionIsThrown(){
+        Employees employees = new Employees(employeeRepository,bankService);
+        List<Employee> employeeList = employeeRepository.findAll();
+        doThrow(new RuntimeException()).when(bankService).pay("102",12000);
+        employees.payEmployees();
+        assertThat(employeeList.get(1).isPaid()).isEqualTo(true);
+        assertThat(employeeList.get(2).isPaid()).isEqualTo(false);
+        verify(bankService,times(1)).pay(employeeList.get(3).getId(),employeeList.get(3).getSalary());
+    }
 }
