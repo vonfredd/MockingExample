@@ -11,6 +11,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     private static int latestId = 100;
 
 
+    public EmployeeRepositoryImpl(int numberOfEmployeesToStartWith) {
+        for (int i = 0; i < numberOfEmployeesToStartWith; i++) {
+
+        }
+    }
+
+    public EmployeeRepositoryImpl() {
+    }
+
     @Override
     public List<Employee> findAll() {
         return List.copyOf(employeeList);
