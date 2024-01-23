@@ -13,7 +13,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     public EmployeeRepositoryImpl(int numberOfEmployeesToStartWith) {
         for (int i = 0; i < numberOfEmployeesToStartWith; i++) {
-
+            employeeList.add(new Employee(String.valueOf(latestId++),10_000.0));
         }
     }
 
