@@ -43,8 +43,13 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
-    @Description("Validate true if employee argument has an id that already exist")
-    void validateTrueIfEmployeeArgumenthasAnIdThatAlreadyExist(){
-
+    @Description("Should update object and return true if object has new salary and same id")
+    void shouldUpdateObjectAndReturnTrueIfObjectHasNewSalaryAndSameId() {
+        EmployeeRepositoryImpl employeeRepositoryImpl = new EmployeeRepositoryImpl();
+        employeeRepositoryImpl.save(new Employee("100", 10_000.0));
+        employeeRepositoryImpl.save(new Employee("100", 20_000.0));
+        List<Employee> empList = employeeRepositoryImpl.findAll();
+        assertThat(empList.get(0).getSalary()).isEqualTo(20_000.0);
+        assertThat(empList.get(0).getId()).isEqualTo("100");
     }
 }
