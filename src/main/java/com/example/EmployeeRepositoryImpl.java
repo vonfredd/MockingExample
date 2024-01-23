@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private final List<Employee> employeeList;
-    private static int latestId = 100;
+    public static int latestId = 100;
 
     public EmployeeRepositoryImpl(int numberOfEmployeesToStartWith) throws IllegalArgumentException {
         employeeList = new ArrayList<>(numberOfEmployeesToStartWith);
