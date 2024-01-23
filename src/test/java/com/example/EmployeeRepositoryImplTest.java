@@ -15,6 +15,11 @@ import static org.mockito.Mockito.*;
 
 class EmployeeRepositoryImplTest {
 
+    @BeforeEach
+    void setUp(){
+        EmployeeRepositoryImpl.latestId = 100;
+    }
+
     @ParameterizedTest
     @Description("Returns true if list returns same size as parameter")
     @ValueSource(ints = {3, 7, 23, 10, 35})
