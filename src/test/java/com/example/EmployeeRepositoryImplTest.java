@@ -5,13 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.Mockito;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class EmployeeRepositoryImplTest {
 
@@ -32,9 +30,7 @@ class EmployeeRepositoryImplTest {
     @Test
     @Description("Throws exception if pre populated constructor gets negative argument")
     void returnsFalseIfPrePopulatedConstructorGetsNegativeArgument() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new EmployeeRepositoryImpl(-35);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new EmployeeRepositoryImpl(-35));
     }
 
 
