@@ -3,6 +3,10 @@ package com.example;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -66,4 +70,16 @@ class EmployeeTest {
         String presentation = "Employee [id=123, salary=10000.0]";
         assertThat(employee.toString()).isEqualTo(presentation);
     }
+
+    @ParameterizedTest
+    @Description("Should return true if employee is instantiated with correct values")
+    @CsvSource({"100,10_000.0", "101,12_000.0", "102,13_000.0"})
+    void shouldReturnTrueIfEmployeeIsInstantiatedWithCorrectValues(ArgumentsAccessor argumentsAccessor) {
+        String id = argumentsAccessor.getString(0);
+        double salary = argumentsAccessor.getDouble(1);
+        Employee employee = new Employee(id, salary);
+        assertThat(employee.getId()).isEqualTo(id);
+        assertThat(employee.getSalary()).isEqualTo(salary);
+    }
+
 }
