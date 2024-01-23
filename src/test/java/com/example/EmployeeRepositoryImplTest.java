@@ -27,7 +27,6 @@ class EmployeeRepositoryImplTest {
     @Test
     @Description("Throws exception if pre populated constructor gets negative argument")
     void returnsFalseIfPrePopulatedConstructorGetsNegativeArgument() {
-        EmployeeRepositoryImpl employeeRepositoryImpl;
         assertThrows(IllegalArgumentException.class, () -> {
             new EmployeeRepositoryImpl(-35);
         });
@@ -46,8 +45,6 @@ class EmployeeRepositoryImplTest {
     @Test
     @Description("Validate true if employee argument has an id that already exist")
     void validateTrueIfEmployeeArgumenthasAnIdThatAlreadyExist(){
-        EmployeeRepositoryImpl employeeRepository = spy(EmployeeRepositoryImpl.class);
-        verify()
 
     }
 }
