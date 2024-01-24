@@ -6,10 +6,14 @@ import com.classes.EmployeeRepository;
 import com.classes.Employees;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,6 +26,7 @@ class EmployeesTest {
     void setUp(){
         employeeRepository = mock(EmployeeRepository.class);
         bankService = spy(new BankServiceImpl());
+
         when(employeeRepository.findAll()).thenReturn(List.of(
                 new Employee("100", 10_000.0),
                 new Employee("101", 20_000.0),
@@ -69,5 +74,15 @@ class EmployeesTest {
         assertThat(employeeList.get(1).isPaid()).isEqualTo(true);
         assertThat(employeeList.get(2).isPaid()).isEqualTo(false);
         verify(bankService,times(1)).pay(employeeList.get(3).getId(),employeeList.get(3).getSalary());
+    }
+
+    @Test
+    @DisplayName("isPaid should be false if exception is thrown")
+    void isPaidShouldBeFalseIfExceptionIsThrown(){
+        Employees employees = new Employees(employeeRepository,bankService);
+        employees.payEmployees();
+        doThrow(RuntimeException.class).when(bankService).pay("101",20_000.0);
+        employees.payEmployees();
+        assertThat(employeeRepository.findAll().get(1).isPaid()).isEqualTo(false);
     }
 }
