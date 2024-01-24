@@ -1,7 +1,8 @@
-package com.example;
+package com.classes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
@@ -26,6 +27,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Employee save(Employee e) {
+        if (e == null)
+            throw new NullPointerException();
         if (e.getId() == null) {
             e.setId(String.valueOf(++latestId));
             employeeList.add(e);
@@ -43,6 +46,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
         if (!isFound)
             employeeList.add(e);
+
         return e;
     }
 }

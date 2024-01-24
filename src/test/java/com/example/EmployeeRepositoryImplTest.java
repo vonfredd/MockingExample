@@ -1,15 +1,15 @@
 package com.example;
 
+import com.classes.Employee;
+import com.classes.EmployeeRepositoryImpl;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,5 +66,13 @@ class EmployeeRepositoryImplTest {
                 .map(Employee::getId)
                 .toList();
         assertThat(employeeIdList).contains("100", "101", "102");
+    }
+
+    @Test
+    @DisplayName("Should throw exception if employee parameter is null")
+    void shouldThrowExceptionIfEmployeeParameterIsNull(){
+        EmployeeRepositoryImpl employeeRepositoryImpl = new EmployeeRepositoryImpl();
+
+        assertThrows(NullPointerException.class,()-> {employeeRepositoryImpl.save(null);});
     }
 }
