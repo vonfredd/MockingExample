@@ -72,7 +72,14 @@ class EmployeeRepositoryImplTest {
     @DisplayName("Should throw exception if employee parameter is null")
     void shouldThrowExceptionIfEmployeeParameterIsNull(){
         EmployeeRepositoryImpl employeeRepositoryImpl = new EmployeeRepositoryImpl();
-
         assertThrows(NullPointerException.class,()-> {employeeRepositoryImpl.save(null);});
+    }
+
+    @Test
+    @DisplayName("Returned object should be of class Employee")
+    void returnedObjectShouldBeOfClassEmployee(){
+        EmployeeRepositoryImpl employeeRepository = new EmployeeRepositoryImpl();
+        Employee employee = employeeRepository.save(new Employee("100",10_000.0));
+        assertThat(employee).isInstanceOf(Employee.class);
     }
 }
