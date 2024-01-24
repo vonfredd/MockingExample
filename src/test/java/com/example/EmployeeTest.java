@@ -1,5 +1,6 @@
 package com.example;
 
+import com.classes.Employee;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
