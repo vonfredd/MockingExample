@@ -50,4 +50,11 @@ class CalculatorTest {
         assertThat(sum).isEqualTo(6);
     }
     
+    @Test
+    @DisplayName("Supports different delimiters")
+    void supportsDifferentDelimiters(){
+        int sum = calculator.add("//;\n1;2");
+        assertThat(sum).isEqualTo(3);
+    }
+    
 }
