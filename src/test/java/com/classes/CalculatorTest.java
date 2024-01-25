@@ -27,4 +27,11 @@ class CalculatorTest {
         int sum = calculator.add("");
         assertThat(sum).isEqualTo(0);
     }
+
+    @Test
+    @DisplayName("Single number should return itself")
+    void singleNumberShouldReturnItself(){
+        int sum = calculator.add("9");
+        assertThat(sum).isEqualTo(9);
+    }
 }
