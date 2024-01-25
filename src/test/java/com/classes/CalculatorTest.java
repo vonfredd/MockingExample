@@ -34,4 +34,13 @@ class CalculatorTest {
         int sum = calculator.add("9");
         assertThat(sum).isEqualTo(9);
     }
+    
+    @ParameterizedTest
+    @DisplayName("Add method handles unknown amount of numbers")
+    @CsvSource (value = {"1,2;3","2;2","1,2,3,4,5,6,7,8,9;45"}, delimiter = (';'))
+    void addMethodHandlesUnknownAmountOfNumbers(String input, int expectedSum){
+        int sum = calculator.add(input);
+        assertThat(sum).isEqualTo(expectedSum);
+    }
+    
 }
