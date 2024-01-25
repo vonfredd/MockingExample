@@ -42,5 +42,12 @@ class CalculatorTest {
         int sum = calculator.add(input);
         assertThat(sum).isEqualTo(expectedSum);
     }
+
+    @Test
+    @DisplayName("Should handle newlines between numbers")
+    void shouldHandleNewlinesBetweenNumbers(){
+        int sum = calculator.add("1\n2,3");
+        assertThat(sum).isEqualTo(6);
+    }
     
 }
