@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.contentOf;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
@@ -66,7 +67,8 @@ class CalculatorTest {
     @Test
     @DisplayName("Ignore to add numbers bigger than 1000")
     void ignoreToAddNumbersBiggerThan1000(){
-
+        int sum = calculator.add("2,1001");
+        assertThat(sum).isEqualTo(2);
     }
     
 }

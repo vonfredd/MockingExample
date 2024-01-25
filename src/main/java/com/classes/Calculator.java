@@ -28,7 +28,7 @@ public class Calculator {
         if (negativeNumberList.size() > 0)
             throw new IllegalArgumentException("“negatives not allowed”" + negativeNumberList);
 
-        return input.isEmpty() ? 0 : Stream.of(input.split("[\\n" + delimiter +"]")).mapToInt(Integer::parseInt).sum();
+        return input.isEmpty() ? 0 : Stream.of(input.split("[\\n" + delimiter +"]")).mapToInt(Integer::parseInt).filter((e) -> e <= 1000).sum();
     }
 
 }
