@@ -56,5 +56,17 @@ class CalculatorTest {
         int sum = calculator.add("//;\n1;2");
         assertThat(sum).isEqualTo(3);
     }
+
+    @Test
+    @DisplayName("Input negative numbers throws an exception")
+    void inputNegativeNumbersThrowsAnException(){
+        assertThrows(IllegalArgumentException.class, () -> calculator.add("1,2,-3,7"));
+    }
+
+    @Test
+    @DisplayName("Ignore to add numbers bigger than 1000")
+    void ignoreToAddNumbersBiggerThan1000(){
+
+    }
     
 }
