@@ -1,20 +1,10 @@
 package com.classes;
 
-import java.awt.*;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Calculator {
-    public static void main(String[] args) {
-        Calculator c = new Calculator();
-        int sum = c.add("//[***][%]\n1*2%3");
-    }
     public int add(String input) {
 
         if (input.isEmpty()) {

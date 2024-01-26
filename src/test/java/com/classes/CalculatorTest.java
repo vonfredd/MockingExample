@@ -1,6 +1,6 @@
 package com.classes;
 
-import org.junit.jupiter.api.BeforeEach;
+import com.sun.jdi.Value;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.contentOf;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
@@ -71,6 +70,14 @@ class CalculatorTest {
         assertThat(sum).isEqualTo(2);
     }
 
+    @ParameterizedTest
+    @DisplayName("Add values that is equal to 1000")
+    @ValueSource(strings = {"1,5,1000"})
+    void addValuesThatIsEqualTo1000(String input){
+        int sum = calculator.add(input);
+        assertThat(sum).isEqualTo(1006);
+    }
+
     @Test
     @DisplayName("Delimiters can be of any length")
     void delimitersCanBeOfAnyLength() {
@@ -84,4 +91,5 @@ class CalculatorTest {
         int number = calculator.add("//[*][%]\n1*2%3");
         assertThat(number).isEqualTo(6);
     }
+
 }
