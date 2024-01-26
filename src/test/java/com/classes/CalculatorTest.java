@@ -63,6 +63,13 @@ class CalculatorTest {
         assertThrows(IllegalArgumentException.class, () -> calculator.add("1,2,-3,7"));
     }
 
+    @ParameterizedTest
+    @DisplayName("Should not throw exception if 0 is used as parameter")
+    @ValueSource(strings = {"1,1000,0"})
+    void shouldNotThrowExceptionIf0IsUsedAsParameter(String input){
+        assertDoesNotThrow(() -> calculator.add(input));
+    }
+
     @Test
     @DisplayName("Ignore to add numbers bigger than 1000")
     void ignoreToAddNumbersBiggerThan1000() {
