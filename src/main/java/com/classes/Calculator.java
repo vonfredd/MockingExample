@@ -13,37 +13,37 @@ import java.util.stream.Stream;
 public class Calculator {
     public static void main(String[] args) {
         Calculator c = new Calculator();
-        int sum = c.add("1,2,3,4,5,6,7,8,9");
+        int sum = c.add("//[***][%]\n1*2%3");
     }
     public int add(String input) {
+
         if (input.isEmpty()) {
             return 0;
         }
 
         String delimiter = ",";
-        if(input.startsWith("//[")){
-            delimiter = input.substring(3,input.indexOf(']'));
-            List<String> splitInput = List.of(input.split("\\n"));
-            input = splitInput.getLast();
-        }
-        else if (input.startsWith("//")) {
+        if (input.startsWith("//[")) {
+            delimiter = "["+
+                    List.of(input.split("\\n"))
+                            .getFirst()
+                            .replace("/","")
+                            .replace("]","[")
+                            .replace("[","")
+                    + "]";
+
+            input = Arrays.stream(input.split("\\n"))
+                    .toList()
+                    .getLast();
+        } else if (input.startsWith("//")) {
             delimiter = String.valueOf(input.charAt(2));
             input = input.substring(4);
         }
 
-        if (delimiter.charAt(0) == '*'){
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < delimiter.length(); i++) {
-                sb.append("\\" + delimiter.charAt(i));
-            }
-            delimiter = String.valueOf(sb);
-        }
-
-        List<Integer> negativeNumberList = Stream.of(input.split("\\*+|\\n|"+delimiter)).mapToInt(Integer::parseInt).filter((e)-> e < 0).boxed().toList();
-        if (negativeNumberList.size() > 0)
+        List<Integer> negativeNumberList = Stream.of(input.split("\\*+|\\n|" + delimiter)).mapToInt(Integer::parseInt).filter(e -> e < 0).boxed().toList();
+        if (!negativeNumberList.isEmpty())
             throw new IllegalArgumentException("“negatives not allowed”" + negativeNumberList);
 
-        return input.isEmpty() ? 0 : Stream.of(input.split("\\*+|\\n|"+delimiter)).mapToInt(Integer::parseInt).filter((e) -> e <= 1000).sum();
+        return Stream.of(input.split("\\*+|\\n|" + delimiter)).mapToInt(Integer::parseInt).filter(e -> e <= 1000).sum();
     }
 
 }
