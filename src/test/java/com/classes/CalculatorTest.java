@@ -98,5 +98,4 @@ class CalculatorTest {
         int number = calculator.add("//[*][%]\n1*2%3");
         assertThat(number).isEqualTo(6);
     }
-
 }

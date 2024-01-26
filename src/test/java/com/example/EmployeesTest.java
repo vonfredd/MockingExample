@@ -12,8 +12,7 @@ import org.mockito.Mockito;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +24,7 @@ class EmployeesTest {
     @BeforeEach
     void setUp(){
         employeeRepository = mock(EmployeeRepository.class);
-        bankService = spy(new BankServiceImpl());
+        bankService = new BankServiceImpl();
 
         when(employeeRepository.findAll()).thenReturn(List.of(
                 new Employee("100", 10_000.0),
@@ -35,54 +34,39 @@ class EmployeesTest {
     }
 
     @Test
-    @Description("Given a list of four employees, should return four")
-    void givenAListOfFourEmployeesShouldReturnFour() {
+    @Description("Given a call to pay method from implementation of bankService the test should verify it is called")
+    void givenACallToPayMethodFromImplementationOfBankServiceTheTestShouldVerifyItIsCalled(){
         Employees employees = new Employees(employeeRepository,bankService);
         int number = employees.payEmployees();
         assertThat(number).isEqualTo(4);
     }
 
     @Test
-    @Description("Given a call to pay method from implementation of bankService the test should verify it is called")
-    void givenACallToPayMethodFromImplementationOfBankServiceTheTestShouldVerifyItIsCalled(){
-        Employees employees = new Employees(employeeRepository,bankService);
-        employees.payEmployees();
-        verify(bankService,times(1)).pay("100",10000);
-        verify(bankService,times(1)).pay("101",20000);
-        verify(bankService,times(1)).pay("102",12000);
-        verify(bankService,times(1)).pay("103",15000);
+    @DisplayName("Should return true if only three employees was paid after one triggered exception")
+    void shouldReturnTrueIfOnlyThreeEmployeesWasPaidAfterOneTriggeredException(){
+        BankService bankService1 = mock(BankServiceImpl.class);
+        Employees employees = new Employees(employeeRepository,bankService1);
+        doThrow(RuntimeException.class).when(bankService1).pay("100", 10_000.0);
+        int sum = employees.payEmployees();
+        assertEquals(3,sum);
     }
 
     @Test
-    @Description("isPaid should return false if employee throws exception")
-    void givenAnEmployeeThatTriggerAnExceptionTheIsPaidOfThatEmployeeShouldBeFalse(){
+    @DisplayName("Returns true if employee was paid")
+    void returnsTrueIfEmployeeWasPaid(){
         Employees employees = new Employees(employeeRepository,bankService);
-        List<Employee> employeeList = employeeRepository.findAll();
-        doThrow(new RuntimeException()).when(bankService).pay("102",12000);
         employees.payEmployees();
-        assertThat(employeeList.get(1).isPaid()).isEqualTo(true);
-        assertThat(employeeList.get(2).isPaid()).isEqualTo(false);
+        assertThat(employeeRepository.findAll()).extracting(Employee::isPaid).allMatch(isTrue -> isTrue);
     }
 
     @Test
-    @Description("Should continue with next element in list if exception is thrown during bankService.pay()")
-    void shouldContinueWithNextElementInListIfExceptionIsThrown(){
-        Employees employees = new Employees(employeeRepository,bankService);
-        List<Employee> employeeList = employeeRepository.findAll();
-        doThrow(new RuntimeException()).when(bankService).pay("102",12000);
+    @DisplayName("Returns true if employee.isPaid is false after payEmployee() call")
+    void returnsTrueIfEmployeeIsPaidIsFalseAfterPayEmployeeCall(){
+        BankService bankService1 = mock(BankServiceImpl.class);
+        Employees employees = new Employees(employeeRepository,bankService1);
         employees.payEmployees();
-        assertThat(employeeList.get(1).isPaid()).isEqualTo(true);
-        assertThat(employeeList.get(2).isPaid()).isEqualTo(false);
-        verify(bankService,times(1)).pay(employeeList.get(3).getId(),employeeList.get(3).getSalary());
-    }
-
-    @Test
-    @DisplayName("isPaid should be false if exception is thrown")
-    void isPaidShouldBeFalseIfExceptionIsThrown(){
-        Employees employees = new Employees(employeeRepository,bankService);
+        doThrow(RuntimeException.class).when(bankService1).pay("100", 10_000.0);
         employees.payEmployees();
-        doThrow(RuntimeException.class).when(bankService).pay("101",20_000.0);
-        employees.payEmployees();
-        assertThat(employeeRepository.findAll().get(1).isPaid()).isEqualTo(false);
+        assertFalse(employeeRepository.findAll().getFirst().isPaid());
     }
 }

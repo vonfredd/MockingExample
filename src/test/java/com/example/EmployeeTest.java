@@ -26,8 +26,6 @@ class EmployeeTest {
        assertThat("123").isEqualTo(id);
     }
 
-
-
     @Test
     @Description("Given a new id , return true if the employee id is equal to the new id ")
     void trueIfTheSetIdIsTheEmployeesNewId() {
