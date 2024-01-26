@@ -71,4 +71,11 @@ class CalculatorTest {
         assertThat(sum).isEqualTo(2);
     }
     
+    @Test
+    @DisplayName("Delimiters can be of any length")
+    void delimitersCanBeOfAnyLength(){
+        int number = calculator.add("//[***]\n1***2***3");
+        assertThat(number).isEqualTo(6);
+    }
+    
 }
