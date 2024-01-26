@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
     Game game = new Game();
@@ -15,6 +14,14 @@ class GameTest {
         game.roll(5);
         int score = game.score();
         assertThat(score).isEqualTo(5);
+    }
+    
+    @Test
+    @DisplayName("Should return sum of both rolls if two rolls have been played")
+    void shouldReturnSumIfTwoRollsHaveBeenPlayed(){
+        game.roll(2);
+        game.roll(5);
+        assertThat(game.score()).isEqualTo(7);
     }
 
 }
