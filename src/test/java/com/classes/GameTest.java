@@ -2,8 +2,12 @@ package com.classes;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class GameTest {
     Game game = new Game();
@@ -22,6 +26,18 @@ class GameTest {
         game.roll(2);
         game.roll(5);
         assertThat(game.score()).isEqualTo(7);
+    }
+
+    @Test
+    @DisplayName("Should return true if result is 17")
+    void shouldReturnTrueIfResultIs17(){
+        game.roll(5);
+        game.roll(5);
+        game.roll(1);
+        game.roll(5);
+        game.roll(0);
+
+        assertThat(game.score()).isEqualTo(17);
     }
 
 }
