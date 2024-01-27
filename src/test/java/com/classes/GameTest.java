@@ -36,7 +36,6 @@ class GameTest {
         game.roll(5);
         game.roll(1);
         game.roll(5);
-        game.roll(0);
         assertThat(game.score()).isEqualTo(17);
     }
     
@@ -46,6 +45,17 @@ class GameTest {
         game.roll(5);
         assertEquals(game.rollSquares.size(),1);
     }
+    
+    @Test
+    @DisplayName("Given a set of rounds, strike should be added accordingly")
+    void givenASetOfRoundsStrikeShouldBeAddedAccordingly(){
+        game.roll(4);
+        game.roll(3);
+        game.roll(10);
+        game.roll(4);
+        game.roll(5);
 
+        assertThat(game.score()).isEqualTo(35);
+    }
 
 }

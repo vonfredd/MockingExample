@@ -9,21 +9,33 @@ public class Game {
 
     public void roll(int i) {
         rollSquares.add(i);
-        checkForSpares(i);
     }
 
-    private void checkForSpares(int i) {
-        if (rollSquares.size() > 2) {
-            int first = rollSquares.get(rollSquares.size() - 3);
-            int second = rollSquares.get(rollSquares.size() - 2);
-            if (first + second == 10) {
-                score = first + second + i;
-            }
+    private void addScore() {
+        score = 0;
+        int gameFields = 0;
+        int rollIndex = 0;
+        if (rollSquares.size() == 1) {
+            score = rollSquares.getFirst();
+            return;
         }
-        score += i;
+        while (gameFields < 10 && rollIndex < rollSquares.size()) {
+            if (rollSquares.get(rollIndex) == 10) {
+                score += 10 + (rollSquares.get(rollIndex + 1) + rollSquares.get(rollIndex + 2));
+                rollIndex++;
+            } else if (rollSquares.get(rollIndex) + rollSquares.get(rollIndex + 1) == 10) {
+                score += 10 + rollSquares.get(rollIndex+2);
+                rollIndex += 2;
+            } else {
+                score += rollSquares.get(rollIndex) + rollSquares.get(rollIndex + 1);
+                rollIndex += 2;
+            }
+                gameFields++;
+        }
     }
 
     public int score() {
+        addScore();
         return score;
     }
 }
