@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -36,8 +37,15 @@ class GameTest {
         game.roll(1);
         game.roll(5);
         game.roll(0);
-
         assertThat(game.score()).isEqualTo(17);
     }
+    
+    @Test
+    @DisplayName("Returns 1 if player has rolled")
+    void returns1IfCurrentRollIsFirstroll(){
+        game.roll(5);
+        assertEquals(game.rollSquares.size(),1);
+    }
+
 
 }
