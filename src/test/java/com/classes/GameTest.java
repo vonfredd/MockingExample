@@ -76,7 +76,15 @@ class GameTest {
         game.roll(10);
         game.roll(5);
         game.roll(3);
-
         assertEquals(18,game.bonus("Strike",0));
+    }
+    
+    @Test
+    @DisplayName("Should return 11 to the spare field")
+    void shouldReturn11ToTheSpareField(){
+        game.roll(5);
+        game.roll(5);
+        game.roll(1);
+        assertEquals(11,game.bonus("Spare",0));
     }
 }

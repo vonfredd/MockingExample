@@ -24,7 +24,7 @@ public class Game {
                 score += bonus("Strike",rollIndex);
                 rollIndex++;
             } else if (rollSquares.get(rollIndex) + rollSquares.get(rollIndex + 1) == 10) {
-                score += 10 + rollSquares.get(rollIndex+2);
+                score += bonus("Spare",rollIndex);
                 rollIndex += 2;
             } else {
                 score += rollSquares.get(rollIndex) + rollSquares.get(rollIndex + 1);
@@ -40,6 +40,8 @@ public class Game {
     }
 
     int bonus(String bonusType, int rollIndex){
-        return 10 + (rollSquares.get(rollIndex + 1) + rollSquares.get(rollIndex + 2));
+        return bonusType.equals("Strike") ?
+                10 + (rollSquares.get(rollIndex + 1) + rollSquares.get(rollIndex + 2)) :
+                10 + rollSquares.get(rollIndex+2);
     }
 }
