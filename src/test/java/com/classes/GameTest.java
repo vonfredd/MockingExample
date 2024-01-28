@@ -69,4 +69,14 @@ class GameTest {
         game.roll(10);
         assertEquals(300,game.score());
     }
+
+    @Test
+    @DisplayName("Should return 18 to the strike field")
+    void shouldReturn18ToTheStrikeField(){
+        game.roll(10);
+        game.roll(5);
+        game.roll(3);
+
+        assertEquals(18,game.bonus("Strike",0));
+    }
 }

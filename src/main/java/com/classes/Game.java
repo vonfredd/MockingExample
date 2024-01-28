@@ -21,7 +21,7 @@ public class Game {
         }
         while (gameFields < 10 && rollIndex < rollSquares.size()) {
             if (rollSquares.get(rollIndex) == 10) {
-                score += 10 + (rollSquares.get(rollIndex + 1) + rollSquares.get(rollIndex + 2));
+                score += bonus("Strike",rollIndex);
                 rollIndex++;
             } else if (rollSquares.get(rollIndex) + rollSquares.get(rollIndex + 1) == 10) {
                 score += 10 + rollSquares.get(rollIndex+2);
@@ -37,5 +37,9 @@ public class Game {
     public int score() {
         addScore();
         return score;
+    }
+
+    int bonus(String bonusType, int rollIndex){
+        return 10 + (rollSquares.get(rollIndex + 1) + rollSquares.get(rollIndex + 2));
     }
 }
