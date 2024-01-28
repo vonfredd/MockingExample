@@ -2,7 +2,6 @@ package com.classes;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
@@ -12,8 +11,7 @@ class GameTest {
     @DisplayName("Score should return 5 if 5 pins are knocked down")
     void scoreShouldReturn5If5PinsAreKnockedDown() {
         game.roll(5);
-        int score = game.score();
-        assertThat(score).isEqualTo(5);
+        assertEquals(5,game.score());
     }
 
     @Test
@@ -21,22 +19,22 @@ class GameTest {
     void shouldReturnSumIfTwoRollsHaveBeenPlayed() {
         game.roll(2);
         game.roll(5);
-        assertThat(game.score()).isEqualTo(7);
+        assertEquals(7,game.score());
     }
 
     @Test
-    @DisplayName("Should return true if result is 17")
-    void shouldReturnTrueIfResultIs17() {
+    @DisplayName("Should return 17 if spare is calculated correctly")
+    void shouldReturn17IfSpareIsCalculatedCorrectly() {
         game.roll(5);
         game.roll(5);
         game.roll(1);
         game.roll(5);
-        assertThat(game.score()).isEqualTo(17);
+        assertEquals(17,game.score());
     }
 
     @Test
-    @DisplayName("Returns 1 if player has rolled")
-    void returns1IfCurrentRollIsFirstroll() {
+    @DisplayName("Returns 1 if player has rolled one time")
+    void returns1IfPlayerHasRolledOneTime() {
         game.roll(5);
         assertEquals(1, game.rollSquares.size());
     }
@@ -49,8 +47,7 @@ class GameTest {
         game.roll(10);
         game.roll(4);
         game.roll(5);
-
-        assertThat(game.score()).isEqualTo(35);
+        assertEquals(35,game.score());
     }
 
 
@@ -70,7 +67,6 @@ class GameTest {
         game.roll(10);
         game.roll(10);
         game.roll(10);
-
-        assertThat(game.score()).isEqualTo(300);
+        assertEquals(300,game.score());
     }
 }
