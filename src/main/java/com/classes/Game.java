@@ -40,6 +40,11 @@ public class Game {
     }
 
     int bonus(String bonusType, int rollIndex){
+        if (bonusType.equals("Strike") && rollSquares.size() < rollIndex + 3)
+            return 0;
+        else if (bonusType.equals("Spare") && rollSquares.size() < rollIndex + 3) {
+            return 0;
+        }
         return bonusType.equals("Strike") ?
                 10 + (rollSquares.get(rollIndex + 1) + rollSquares.get(rollIndex + 2)) :
                 10 + rollSquares.get(rollIndex+2);
