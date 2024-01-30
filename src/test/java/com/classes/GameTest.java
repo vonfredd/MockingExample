@@ -95,4 +95,11 @@ class GameTest {
         game.roll(10);
         assertEquals(0, game.score());
     }
+    @Test
+    @DisplayName("Should return 0 since there is nothing to calculate when spare in first field")
+    void shouldReturn0SInceThereIsNothingToCalculateWhenSpareInFirstField(){
+        game.roll(5);
+        game.roll(5);
+        assertEquals(0, game.score());
+    }
 }
